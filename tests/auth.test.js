@@ -1,8 +1,8 @@
+// tests/auth.test.js
 import request from "supertest";
-import app from "../src/app.js";
+import app from "./setup.js";
 
 describe("Auth Routes", () => {
-
   let token;
 
   it("should register a user", async () => {
@@ -11,7 +11,7 @@ describe("Auth Routes", () => {
       .send({
         name: "Test User",
         email: "test@example.com",
-        password: "123456"
+        password: "123456",
       });
 
     expect(res.statusCode).toBe(201);
@@ -23,13 +23,11 @@ describe("Auth Routes", () => {
       .post("/api/auth/login")
       .send({
         email: "test@example.com",
-        password: "123456"
+        password: "123456",
       });
 
     expect(res.statusCode).toBe(200);
     expect(res.body.token).toBeDefined();
-
     token = res.body.token;
   });
-
 });
